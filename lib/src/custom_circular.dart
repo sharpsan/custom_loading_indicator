@@ -6,12 +6,16 @@ class CustomCircularLoadingIndicator extends StatefulWidget {
   final int relativeSize;
   final int relativeSpeed;
 
-  CustomCircularLoadingIndicator(
-      {this.imagePath,
-      this.curveName = Curves.ease,
-      this.relativeSize = 2,
-      this.relativeSpeed = 2})
-      : assert(relativeSize >= 1 &&
+  /// reverse the animation after reaching the end
+  final bool reverseAnimationAtEnd;
+
+  CustomCircularLoadingIndicator({
+    this.imagePath,
+    this.curveName = Curves.ease,
+    this.relativeSize = 2,
+    this.relativeSpeed = 2,
+    this.reverseAnimationAtEnd = false,
+  }) : assert(relativeSize >= 1 &&
             relativeSize <= 6 &&
             relativeSpeed >= 1 &&
             relativeSpeed <= 6);
@@ -44,7 +48,9 @@ class _CustomCircularLoadingIndicatorState
         duration:
             Duration(milliseconds: relativeSpeedsList[_relativeSpeed - 1]))
       ..addListener(() => setState(() {}))
-      ..repeat();
+      ..repeat(
+        reverse: widget.reverseAnimationAtEnd,
+      );
 
     _curve = CurvedAnimation(parent: _controller, curve: widget.curveName);
 

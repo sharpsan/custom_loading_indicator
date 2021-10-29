@@ -7,6 +7,12 @@ class CustomOscillatoryLoadingIndicator extends StatefulWidget {
   final int relativeSize;
   final int relativeSpeed;
   final bool spinning;
+  final double begin;
+  final double end;
+  final Offset Function(double value) offsetBuilder;
+
+  /// reverse the animation after reaching the end
+  final bool reverseSpinningAnimationAtEnd;
 
   CustomOscillatoryLoadingIndicator({
     this.imagePath,
@@ -14,6 +20,10 @@ class CustomOscillatoryLoadingIndicator extends StatefulWidget {
     this.relativeSize = 2,
     this.relativeSpeed = 4,
     this.spinning = true,
+    this.begin = -45.0,
+    this.end = 45.0,
+    this.offsetBuilder,
+    this.reverseSpinningAnimationAtEnd = false,
   }) : assert(relativeSize >= 1 &&
             relativeSize <= 6 &&
             relativeSpeed >= 1 &&
@@ -54,7 +64,7 @@ class _CustomOscillatoryLoadingIndicatorState
 
     _curve = CurvedAnimation(parent: _controller, curve: widget.curveName);
 
-    _animation = Tween(begin: -45.0, end: 45.0).animate(_curve);
+    _animation = Tween(begin: widget.begin, end: widget.end).animate(_curve);
 
     _controller.addListener(() {
       setState(() {
@@ -76,10 +86,16 @@ class _CustomOscillatoryLoadingIndicatorState
         animation: _animation,
         builder: (context, snapshot) {
           return Transform.translate(
-            offset: Offset(0, y),
+            offset: widget.offsetBuilder == null
+                ? Offset(0, y)
+                : widget.offsetBuilder.call(y),
             child: _spinning
                 ? CustomCircularLoadingIndicator(
-                    imagePath: _imagePath, relativeSize: _relativeSize)
+                    imagePath: _imagePath,
+                    relativeSize: _relativeSize,
+                    relativeSpeed: _relativeSpeed,
+                    reverseAnimationAtEnd: widget.reverseSpinningAnimationAtEnd,
+                  )
                 : Center(
                     child: Container(
                       alignment: Alignment.center,
