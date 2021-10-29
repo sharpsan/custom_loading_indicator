@@ -13,6 +13,7 @@ class CustomOscillatoryLoadingIndicator extends StatefulWidget {
 
   /// reverse the animation after reaching the end
   final bool reverseSpinningAnimationAtEnd;
+  final Color backgroundColor;
 
   CustomOscillatoryLoadingIndicator({
     this.imagePath,
@@ -24,6 +25,7 @@ class CustomOscillatoryLoadingIndicator extends StatefulWidget {
     this.end = 45.0,
     this.offsetBuilder,
     this.reverseSpinningAnimationAtEnd = false,
+    this.backgroundColor,
   }) : assert(relativeSize >= 1 &&
             relativeSize <= 6 &&
             relativeSpeed >= 1 &&
@@ -95,11 +97,13 @@ class _CustomOscillatoryLoadingIndicatorState
                     relativeSize: _relativeSize,
                     relativeSpeed: _relativeSpeed,
                     reverseAnimationAtEnd: widget.reverseSpinningAnimationAtEnd,
+                    backgroundColor: widget.backgroundColor,
                   )
                 : Center(
                     child: Container(
                       alignment: Alignment.center,
                       child: CircleAvatar(
+                        backgroundColor: widget.backgroundColor,
                         backgroundImage: AssetImage(_imagePath),
                         radius: relativeSizesList[_relativeSize - 1],
                       ),

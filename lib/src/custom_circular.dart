@@ -9,12 +9,15 @@ class CustomCircularLoadingIndicator extends StatefulWidget {
   /// reverse the animation after reaching the end
   final bool reverseAnimationAtEnd;
 
+  final Color backgroundColor;
+
   CustomCircularLoadingIndicator({
     this.imagePath,
     this.curveName = Curves.ease,
     this.relativeSize = 2,
     this.relativeSpeed = 2,
     this.reverseAnimationAtEnd = false,
+    this.backgroundColor,
   }) : assert(relativeSize >= 1 &&
             relativeSize <= 6 &&
             relativeSpeed >= 1 &&
@@ -65,6 +68,7 @@ class _CustomCircularLoadingIndicatorState
         child: Container(
           alignment: Alignment.center,
           child: CircleAvatar(
+            backgroundColor: widget.backgroundColor,
             backgroundImage: AssetImage(_imagePath),
             radius: relativeSizesList[_relativeSize - 1],
           ),
