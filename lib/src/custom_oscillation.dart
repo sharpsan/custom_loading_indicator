@@ -9,14 +9,14 @@ class CustomOscillatoryLoadingIndicator extends StatefulWidget {
   final bool spinning;
   final double begin;
   final double end;
-  final Offset Function(double value) offsetBuilder;
+  final Offset Function(double value)? offsetBuilder;
 
   /// reverse the animation after reaching the end
   final bool reverseSpinningAnimationAtEnd;
-  final Color backgroundColor;
+  final Color? backgroundColor;
 
   CustomOscillatoryLoadingIndicator({
-    this.imagePath,
+    required this.imagePath,
     this.curveName = Curves.ease,
     this.relativeSize = 2,
     this.relativeSpeed = 4,
@@ -39,15 +39,15 @@ class CustomOscillatoryLoadingIndicator extends StatefulWidget {
 class _CustomOscillatoryLoadingIndicatorState
     extends State<CustomOscillatoryLoadingIndicator>
     with SingleTickerProviderStateMixin {
-  Animation<double> _animation;
-  AnimationController _controller;
-  CurvedAnimation _curve;
+  late Animation<double> _animation;
+  late AnimationController _controller;
+  late CurvedAnimation _curve;
   double y = 0.0;
 
-  String _imagePath;
-  bool _spinning;
-  int _relativeSize;
-  int _relativeSpeed;
+  late String _imagePath;
+  late bool _spinning;
+  late int _relativeSize;
+  late int _relativeSpeed;
 
   List<double> relativeSizesList = [30, 45, 60, 80, 100, 120];
   List<int> relativeSpeedsList = [4000, 3000, 2000, 1000, 500, 200, 100];
@@ -90,7 +90,7 @@ class _CustomOscillatoryLoadingIndicatorState
           return Transform.translate(
             offset: widget.offsetBuilder == null
                 ? Offset(0, y)
-                : widget.offsetBuilder.call(y),
+                : widget.offsetBuilder!.call(y),
             child: _spinning
                 ? CustomCircularLoadingIndicator(
                     imagePath: _imagePath,

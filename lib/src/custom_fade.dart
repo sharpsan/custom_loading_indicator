@@ -7,7 +7,7 @@ class CustomFadeLoadingIndicator extends StatefulWidget {
   final int relativeSpeed;
 
   CustomFadeLoadingIndicator(
-      {this.imagePath,
+      {required this.imagePath,
       this.curveName = Curves.easeIn,
       this.relativeSize = 2,
       this.relativeSpeed = 4})
@@ -23,12 +23,12 @@ class CustomFadeLoadingIndicator extends StatefulWidget {
 
 class _CustomFadeLoadingIndicatorState extends State<CustomFadeLoadingIndicator>
     with TickerProviderStateMixin {
-  AnimationController _controller;
-  Animation<double> _animation;
-  CurvedAnimation _curve;
-  String _imagePath;
-  int _relativeSize;
-  int _relativeSpeed;
+  late AnimationController _controller;
+  late Animation<double> _animation;
+  late CurvedAnimation _curve;
+  late String _imagePath;
+  late int _relativeSize;
+  late int _relativeSpeed;
 
   List<double> relativeSizesList = [30, 45, 60, 80, 100, 120];
   List<int> relativeSpeedsList = [4000, 3000, 2000, 1000, 500, 200, 100];
