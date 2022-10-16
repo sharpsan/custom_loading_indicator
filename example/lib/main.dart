@@ -29,21 +29,21 @@ class _MyAppState extends State<MyApp> {
               child: SafeArea(
             child: Column(
               children: <Widget>[
-                RaisedButton(
+                ElevatedButton(
                   onPressed: () {
                     Navigator.pushNamed(context, '/CustomCircularExample');
                   },
                   child: Text("Custom Loading Indicator",
                       overflow: TextOverflow.clip),
                 ),
-                RaisedButton(
+                ElevatedButton(
                   onPressed: () {
                     Navigator.pushNamed(context, '/CustomFadeExample');
                   },
                   child: Text("Custom Fading Indicator",
                       overflow: TextOverflow.clip),
                 ),
-                RaisedButton(
+                ElevatedButton(
                   onPressed: () {
                     Navigator.pushNamed(context, '/CustomOscillatoryExample');
                   },
